@@ -6,37 +6,6 @@
 
 using namespace std;
 
-int readNumberFromUser(string msg)
-{
-	int number;
-	do
-	{
-		cout << msg << endl;
-		cin >> number;
-	} while (number <= 0 || number > 100);
-
-	return number;
-}
-
-
-bool readBoolFromUser(string msg)
-{
-	int number;
-	do
-	{
-		cout << msg << endl;
-		cin >> number;
-	} while (number > 1 || number < 0);
-
-	if (number) return true;
-	return false;
-}
-
-int RandomNumber(int From, int To)
-{
-	int randNum = rand() % (To - From + 1) + From;
-	return randNum;
-}
 
 void printArray(int* arr, int size) {
 
@@ -47,51 +16,31 @@ void printArray(int* arr, int size) {
 
 }
 
-
-void  addNumberToArray(int array[100] ,int& index , int number)
+bool checkIfArrayPalindrom(int array[5], int size)
 {
-	array[index] = number;
-	index++;
-}
-
-
-int  copyArray(int array[100], int array2[100],int size)
-{
-	int counter = 0;
-
-	while (array[counter] % 2 != 0)
-	{
-		addNumberToArray(array2, counter, array[counter]);
+	for (int i = 0; i < size; i++) {
+		if (array[i] != array[size - 1 - i]) return false;
 	}
-
-	return counter;
+	return true;
 }
 
-void fillArrayWithRandomNumbers(int array[100], int size)
+void printResult(bool status)
 {
-	for (int i = 0; i < size;)
-	{
-		addNumberToArray(array, i, RandomNumber(1 ,100 ));
-	}
+	cout << "Your array Is ";
+	if (status) cout << " Palindrom \n";
+	else cout << "not Palindrom" << endl;
 }
-
 int main() {
 	//Seeds the random number generator in C++, called only once
 	srand((unsigned)time(NULL));
 
-	int array[100] , array2[100];
-	int size = readNumberFromUser("please enter number : ");
-
-	fillArrayWithRandomNumbers(array, size);
-
-
-	int size2 = copyArray(array, array2, size);
+	int array[5] = {30 , 10 , 20 , 10 ,30 };
 	
 
-	printArray(array, size);
-	if (size2)printArray(array2, size2);
-	else cout << "ther is no anny number is ood";
+	printArray(array, 5);
 
+	
+	printResult(checkIfArrayPalindrom(array, 5));
 	
 	
 	return 0;
